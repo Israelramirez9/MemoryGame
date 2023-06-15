@@ -19,7 +19,9 @@ body {
 
 .play-again {
     position: absolute;
-    height: 10%;
+    height: 15%;
+    width: 50%;
+    text-align: center;
 }
 
 #button-play-again {
@@ -79,11 +81,12 @@ main {
     background-color: rgb(255, 255, 255, 0.2);
     padding: 0 10px 10px 10px;
     border-radius: 8px;
-    width: 100%;
+    width: 100%;        
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    
 }
 
 h1 {
@@ -185,7 +188,7 @@ button:hover {
 }
 
 footer {
-    padding: 4rem;
+    padding: 6rem 0rem 0rem 0rem;
     text-align: center;
 }
 
