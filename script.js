@@ -10,11 +10,11 @@ let inicialTimer = false;
 let timer = 30;
 let regressiveTimeId = null;
 //downloads audio 
-let winAudio=new Audio('./sounds/win.wav');
-let loseAudio=new Audio('./sounds/lose.wav');
-let rightAudio=new Audio('./sounds/right.wav');
-let wrongAudio=new Audio('./sounds/wrong.wav');
-let clickAudio=new Audio('./sounds/click.wav');
+let winAudio = new Audio('./sounds/win.wav');
+let loseAudio = new Audio('./sounds/lose.wav');
+let rightAudio = new Audio('./sounds/right.wav');
+let wrongAudio = new Audio('./sounds/wrong.wav');
+let clickAudio = new Audio('./sounds/click.wav');
 
 //pointing Document HTML
 let showMovements = document.getElementById("movements");
@@ -27,6 +27,15 @@ numbers = numbers.sort(() => { return Math.random() - 0.5 });
 console.log(numbers);
 
 //functions
+function downloadImages() {
+    for (let i = 0; i < numbers.length; i++) {
+        let imageElement = document.getElementById(i);
+        imageElement.innerHTML = `<img src="./images/${numbers[i]}.png">`
+        imageElement.style.opacity = 0;
+
+    }
+
+}
 function chronometer() {
     regressiveTimeId = setInterval(() => {
         timer--;
@@ -34,7 +43,7 @@ function chronometer() {
         if (timer == 0) {
             clearInterval(regressiveTimeId);
             blockCards();
-            showMovements.innerHTML=`Movimientos: ${movements} Perdiste 😓`;
+            showMovements.innerHTML = `Movimientos: ${movements} Perdiste 😓`;
             loseAudio.play();
         }
     }, 1000);
@@ -42,15 +51,14 @@ function chronometer() {
 function blockCards() {
     for (let i = 0; i < numbers.length; i++) {
         let blockCard = document.getElementById(i);
-        blockCard.innerHTML = `<img src="./images/${numbers[i]}.png">`;
-        blockCard.disabled = true;
-       
+        blockCard.style.opacity = 1;
+       blockCard.disabled=true;     
     }
 }
 
 //main function
 function showcard(id) {
-    
+
     if (inicialTimer == false) {
         chronometer();
         inicialTimer = true;
@@ -61,7 +69,7 @@ function showcard(id) {
         //show first number
         card1 = document.getElementById(id);
         firstResult = numbers[id];
-        card1.innerHTML = `<img src="./images/${firstResult}.png">` ;
+        card1.style.opacity = 1
 
         //disabled first button
         card1.disabled = true;
@@ -72,7 +80,7 @@ function showcard(id) {
         //show second number
         card2 = document.getElementById(id);
         secondResult = numbers[id];
-        card2.innerHTML = `<img src="./images/${secondResult}.png">`;
+        card2.style.opacity = 1;
 
         //disabled second button
         card2.disabled = true;
@@ -99,12 +107,13 @@ function showcard(id) {
             wrongAudio.play();
             //show for one second values and come back hiden them
             setTimeout(() => {
-                card1.innerHTML = ` `;
-                card2.innerHTML = ` `;
+                card1.style.opacity = 0;
+                card2.style.opacity = 0;
                 card1.disabled = false;
                 card2.disabled = false;
                 cardsShown = 0;
-            }, 500)
+            }, 250)
         }
     }
 }
+downloadImages();
