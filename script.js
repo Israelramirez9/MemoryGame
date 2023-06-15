@@ -1,14 +1,15 @@
 // variables initialization
-let cardsShown = 0;
+let cardsShown;
 let card1 = null;
 let card2 = null;
 let firstResult = null;
 let secondResult = null;
-let movements = 0;
-let hits = 0;
-let inicialTimer = false;
-let timer = 30;
+let movements;
+let hits;
+let inicialTimer;
+let timer;
 let regressiveTimeId = null;
+let numbers;
 //downloads audio 
 let winAudio = new Audio('./sounds/win.wav');
 let loseAudio = new Audio('./sounds/lose.wav');
@@ -17,25 +18,32 @@ let wrongAudio = new Audio('./sounds/wrong.wav');
 let clickAudio = new Audio('./sounds/click.wav');
 
 //pointing Document HTML
+let elementPlayAgain = document.getElementById("button-play-again");
 let showMovements = document.getElementById("movements");
 let showHits = document.getElementById("hits");
 let showTimer = document.getElementById("time-over");
 
 //generatore of aleatory numbers
-let numbers = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
-numbers = numbers.sort(() => { return Math.random() - 0.5 });
-console.log(numbers);
 
-//functions
-function downloadImages() {
+function printBoard() {
+    numbers = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
+    numbers = numbers.sort(() => { return Math.random() - 0.5 });
+    console.log(numbers);
+    timer = 30;
+    cardsShown = 0;
+    movements = 0;
+    hits = 0;
+    inicialTimer = false;
     for (let i = 0; i < numbers.length; i++) {
         let imageElement = document.getElementById(i);
         imageElement.innerHTML = `<img src="./images/${numbers[i]}.png">`
         imageElement.style.opacity = 0;
-
+        imageElement.disabled = false;
     }
 
 }
+
+
 function chronometer() {
     regressiveTimeId = setInterval(() => {
         timer--;
@@ -45,6 +53,8 @@ function chronometer() {
             blockCards();
             showMovements.innerHTML = `Movimientos: ${movements} Perdiste 😓`;
             loseAudio.play();
+            let elementPlayAgain = document.getElementById("button-play-again");
+            elementPlayAgain.style.display = "flex";
         }
     }, 1000);
 }
@@ -52,13 +62,12 @@ function blockCards() {
     for (let i = 0; i < numbers.length; i++) {
         let blockCard = document.getElementById(i);
         blockCard.style.opacity = 1;
-       blockCard.disabled=true;     
+        blockCard.disabled = true;
     }
 }
 
 //main function
 function showcard(id) {
-
     if (inicialTimer == false) {
         chronometer();
         inicialTimer = true;
@@ -102,18 +111,26 @@ function showcard(id) {
                 showMovements.innerHTML = `Movimientos: ${movements} Has Ganado 🎊`;
                 showHits.innerHTML = `Aciertos: ${hits} 😱`;
                 showTimer.innerHTML = `Lo lograste, demoraste: ${30 - timer} segundos`;
+                elementPlayAgain.style.display = "flex";
+
             }
         } else {
             wrongAudio.play();
+            card1.disabled = false;
+            card2.disabled = false;
+            cardsShown = 0;
             //show for one second values and come back hiden them
             setTimeout(() => {
                 card1.style.opacity = 0;
                 card2.style.opacity = 0;
-                card1.disabled = false;
-                card2.disabled = false;
-                cardsShown = 0;
+
+
             }, 250)
         }
     }
 }
-downloadImages();
+elementPlayAgain.addEventListener("click", () => {
+    printBoard();
+    elementPlayAgain.style.display = "none";
+})
+printBoard();
