@@ -14,18 +14,23 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
 }
 
 .play-again {
     position: absolute;
-    height: 15%;
-    width: 50%;
+    height: 10%;
+    
+    top: 30%;
+    
+    left: 10%;
+   
     text-align: center;
+    z-index: 10;
 }
 
 #button-play-again {
-    text-align: center;
+
     display: none;
     appearance: none;
     background-color: rgb(158, 71, 158);
@@ -43,13 +48,12 @@ body {
     min-width: 0;
     outline: none;
     padding: 1rem 1.5rem;
-    text-align: center;
     text-decoration: none;
     transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    width: 20%;
+    width: 15rem;
     will-change: transform;
 }
 
@@ -81,12 +85,12 @@ main {
     background-color: rgb(255, 255, 255, 0.2);
     padding: 0 10px 10px 10px;
     border-radius: 8px;
-    width: 100%;        
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+
 }
 
 h1 {
@@ -108,9 +112,9 @@ td {
     font-weight: 700;
     letter-spacing: -.01em;
     line-height: 1.3;
-    padding: .775rem .925rem;
+    padding: 0;
     position: relative;
-    text-align: left;
+    text-align: center;
     text-decoration: none;
     transform: translateZ(0) scale(1);
     transition: transform .2s;
